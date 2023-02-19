@@ -1,0 +1,9 @@
+{
+  "user1": {
+    "name": "Azeez",
+    "email": "azeezade04@gmail.com",
+    "chatId": 1150873735,
+    "queryStrings": ["google sheet", "node.js"],
+    "toSendEmail": false
+  }
+}

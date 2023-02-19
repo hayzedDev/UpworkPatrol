@@ -1,0 +1,13 @@
+{
+  "mode": "light",
+  "toSendTelegramNotification": false,
+  "toSendInAppNotification": true,
+  "appisActive": true,
+  "toSendEmail": false,
+  "user": {
+    "name": "User",
+    "email": "",
+    "chatId": "",
+    "queryStrings": ["google sheet", "node.js"]
+  }
+}
