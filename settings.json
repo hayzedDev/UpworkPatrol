@@ -8,6 +8,6 @@
     "name": "User",
     "email": "",
     "chatId": "",
-    "queryStrings": ["google sheet", "node.js"]
+    "queryStrings": []
   }
 }
