@@ -15,5 +15,5 @@ exports.browserLaunchOptions = {
   ],
   ignoreDefaultArgs: ['--mute-audio', '--enable-automation'],
 
-  // headless: false,
+  headless: false,
 };
