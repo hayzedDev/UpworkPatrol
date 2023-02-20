@@ -22,7 +22,7 @@ contextBridge.exposeInMainWorld('electron', {
 
     // remove from settings
     settings.user.queryStrings = settings.user.queryStrings.filter(
-      (olderQueries) => olderQueries.toLowerCase() === query.toLowerCase()
+      (olderQueries) => olderQueries.toLowerCase() !== query.toLowerCase()
     );
     // save the new changes
     fs.writeFileSync('./settings.json', JSON.stringify(settings));
