@@ -87,7 +87,7 @@ exports.browserTab = async function (query) {
     console.log(jobIdsAndTimeValueArray);
 
     console.log('Now in browsertab.js');
-    // window.close();
+    window.close();
 
     return {
       query,
