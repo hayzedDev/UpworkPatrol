@@ -56,8 +56,18 @@
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.3",
-    "electron-reload": "^2.0.0-alpha.1",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "html-to-text": "^9.0.4",
+    "nodemailer": "^6.9.1",
+    "nodemailer-sendgrid": "^1.0.3",
+    "pug": "^3.0.2",
+    "puppeteer": "^19.7.2",
+    "puppeteer-core": "^19.7.2",
+    "puppeteer-extra": "^3.3.4",
+    "puppeteer-extra-plugin-stealth": "^2.11.1",
+    "puppeteer-in-electron": "^3.0.5",
+    "random-useragent": "^0.5.0",
+    "telegraf": "^4.11.2"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.63",
@@ -65,8 +75,6 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.63",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
-    "electron": "^19.1.9",
-    "electron-builder": "^23.6.0",
-    "electron-packager": "^15.5.1"
+    "electron": "^19.1.9"
   }
 }

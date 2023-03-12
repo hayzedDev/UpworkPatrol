@@ -1,32 +1,48 @@
-const puppeteer = require('puppeteer-extra');
+// const puppeteer = require('puppeteer-extra');
+const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer-core');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 
-const { browserConfig } = require('./utils/browserConfig');
+const { browserLaunchOptions } = require('./utils/browserConfig');
 const { pageConfig } = require('./utils/pageConfig');
+const pie = require('puppeteer-in-electron');
+const { BrowserWindow, app } = require('electron');
 
 exports.browserTab = async function (query) {
   const timeArray = ['second', 'minute'];
-  puppeteer.use(StealthPlugin());
-
-  const browser = await puppeteer.launch(browserConfig);
-
-  // const page = await browser.newPage();
-  const page = (await browser.pages())[0];
+  let window;
   try {
-    await pageConfig(page);
+    // puppeteer.use(StealthPlugin());
+
+    // const browser = await puppeteer.launch(browserLaunchOptions);
+
+    const browser = await pie.connect(app, puppeteer);
+
+    window = new BrowserWindow();
+    // window = new BrowserWindow({ show: false });
+    // const url = 'https://upwork.com/';
+
+    // const page = await browser.newPage();
+    // const page = (await browser.pages())[0];
+    // console.log(page);
     // open a new tab on the browser
 
     const queryString = query.replaceAll(' ', '%20');
 
-    await page.goto(
-      `https://www.upwork.com/nx/jobs/search/?q=${queryString}&sort=recency`,
-      {
-        // waituntil: "domcontentloaded",
-        waitUntil: ['networkidle2', 'domcontentloaded'],
-        // waitUntil: "load",
-        timeout: 59000,
-      }
+    // await page.goto(
+    //   `https://www.upwork.com/nx/jobs/search/?q=${queryString}&sort=recency`,
+    //   {
+    //     // waituntil: "domcontentloaded",
+    //     waitUntil: ['networkidle2', 'domcontentloaded'],
+    //     // waitUntil: "load",
+    //     timeout: 59000,
+    //   }
+    // );
+    await window.loadURL(
+      `https://www.upwork.com/nx/jobs/search/?q=${queryString}&sort=recency`
     );
+    const page = await pie.getPage(browser, window);
+    await pageConfig(page);
 
     const dropDownJobId = await page.evaluate(() => {
       const allEls = document.querySelectorAll('.up-card-list-section');
@@ -68,8 +84,11 @@ exports.browserTab = async function (query) {
         obj.timeValue.includes(timeArray[0]) ||
         obj.timeValue.includes(timeArray[1])
     );
+    console.log(jobIdsAndTimeValueArray);
 
-    await browser.close();
+    console.log('Now in browsertab.js');
+    // window.close();
+
     return {
       query,
       jobIdsAndTimeValueArray,
@@ -77,7 +96,7 @@ exports.browserTab = async function (query) {
   } catch (err) {
     // await page.close();
     console.log(err);
-    await browser.close();
+    window.close();
 
     throw new Error(err.message);
   }

@@ -2,12 +2,13 @@
   "mode": "light",
   "toSendTelegramNotification": false,
   "toSendInAppNotification": true,
-  "appisActive": true,
+  "appIsUpToDate": true,
   "toSendEmail": false,
+  "scrappingToggleOn": false,
   "user": {
     "name": "User",
     "email": "",
     "chatId": "",
-    "queryStrings": []
+    "queryStrings": ["google sheet"]
   }
 }

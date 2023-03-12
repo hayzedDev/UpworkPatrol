@@ -1,3 +1,5 @@
+const path = require('path');
+
 exports.browserLaunchOptions = {
   // product: "firefox",
   product: 'chrome',
@@ -14,6 +16,13 @@ exports.browserLaunchOptions = {
     // `--proxy-server=${proxyFetch(index)}`,
   ],
   ignoreDefaultArgs: ['--mute-audio', '--enable-automation'],
+  executablePath: path.join(
+    __dirname,
+    '..',
+    '..',
+    '..',
+    `.cache\puppeteer\chrome\win64-1095492\chrome-win\chrome.exe`
+  ),
 
   headless: false,
 };

@@ -1,4 +1,4 @@
-exports.preparePageForScraping = async function (page) {
+exports.pageConfig = async function (page) {
   const randomUseragent = require('random-useragent');
 
   const USER_AGENT =
