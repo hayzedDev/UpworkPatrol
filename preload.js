@@ -25,6 +25,7 @@ contextBridge.exposeInMainWorld('electron', {
     if (!scrapingStarted) {
       ipcRenderer.send('electron-func', func);
       scrapingStarted = true;
+      return 'Successfully started scrapping!';
     }
   },
   /**
@@ -71,9 +72,9 @@ contextBridge.exposeInMainWorld('electron', {
     return JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
   },
 
-  getUserSettings() {
-    return JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
-  },
+  // getUserSettings() {
+  //   return JSON.parse(fs.readFileSync('./settings.json', 'utf-8'));
+  // },
 });
 
 // {

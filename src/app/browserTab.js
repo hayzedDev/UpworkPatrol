@@ -18,26 +18,13 @@ exports.browserTab = async function (query) {
 
     const browser = await pie.connect(app, puppeteer);
 
-    window = new BrowserWindow();
-    // window = new BrowserWindow({ show: false });
-    // const url = 'https://upwork.com/';
-
-    // const page = await browser.newPage();
-    // const page = (await browser.pages())[0];
-    // console.log(page);
-    // open a new tab on the browser
+    // window = new BrowserWindow();
+    window = new BrowserWindow({
+      show: false,
+    });
 
     const queryString = query.replaceAll(' ', '%20');
 
-    // await page.goto(
-    //   `https://www.upwork.com/nx/jobs/search/?q=${queryString}&sort=recency`,
-    //   {
-    //     // waituntil: "domcontentloaded",
-    //     waitUntil: ['networkidle2', 'domcontentloaded'],
-    //     // waitUntil: "load",
-    //     timeout: 59000,
-    //   }
-    // );
     await window.loadURL(
       `https://www.upwork.com/nx/jobs/search/?q=${queryString}&sort=recency`
     );
@@ -94,7 +81,6 @@ exports.browserTab = async function (query) {
       jobIdsAndTimeValueArray,
     };
   } catch (err) {
-    // await page.close();
     console.log(err);
     window.close();
 

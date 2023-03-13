@@ -1,6 +1,7 @@
 console.log('Now in Browser console');
 
-const { startScraping, stopAllScraping } = window.electron;
+const { startScraping, stopAllScraping, updadeQueryString, getUserSettings } =
+  window.electron;
 
 // startScraping('scrape');
 // startScraping('scrape');
@@ -13,5 +14,7 @@ document.getElementById('closeAllWin').addEventListener('click', () => {
   stopAllScraping('stopAllScraping');
 });
 document.getElementById('startScrape').addEventListener('click', () => {
-  startScraping('scrape');
+  const text = startScraping('scrape');
+  console.log(text);
+  console.log(getUserSettings());
 });

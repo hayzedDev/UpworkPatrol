@@ -18,6 +18,7 @@ const { getIds } = require('./utils/checkIfIdExists');
 //   telegramMessage,
 // } = require('./notifications/telegram/sendTelegramMessage');
 const { sendMail } = require('./notifications/email/sendEmail');
+const { default: axios } = require('axios');
 
 // kill the app
 // process.kill(process.pid, "SIGTERM");
@@ -76,42 +77,40 @@ async function appScrape() {
 
       const usersArray = Object.entries(users);
 
-      const newUsers = users;
-      // const newUsers = usersArray
+      // const users = users;
+      // const users = usersArray
       //   .filter((user) => user[1].queryStrings.includes(query))
       //   .map((el) => el[1]);
 
       const idAndTimeArr = filteredResult[i].jobIdsAndTimeValueArray;
+      console.log(idAndTimeArr);
       for (let j = 0; j < idAndTimeArr.length; j++) {
         const { timeValue, jobUniqueId } = idAndTimeArr[j];
 
-        for (k = 0; k < newUsers.length; k++) {
-          const url = `${process.env.UPWORK_URL}${jobUniqueId}`;
+        // for (k = 0; k < users.length; k++) {
+        const url = `${process.env.UPWORK_URL}${jobUniqueId}`;
 
-          if (newUsers[k].chatId && newUsers[k].chatId !== null) {
-            // telegramMessage(
-            //   newUsers[k].chatId,
-            //   jobUniqueId,
-            //   timeValue,
-            //   newUsers[k].name,
-            //   query
-            // );
-          }
-
-          if (
-            newUsers[k].email &&
-            newUsers[k].email !== null &&
-            newUsers[k].toSendEmail
-          ) {
-            await sendMail(
-              newUsers[k].name,
-              url,
-              newUsers[k].email,
-              query,
-              timeValue
-            );
-          }
+        if (users.chatId) {
+          // send telegram message
+          console.log('Calling API now...');
+          const message = `Hi ${
+            users.name
+          }, There is a new job update on Upwork on "${users.queryStrings[0].toUpperCase()}" Niche  posted ${timeValue.trim()}!\nThe link to the new job update is ${`https://www.upwork.com/jobs/~${jobUniqueId}`}\n\nPlease make sure you apply early so as to increase your chances of winning the Job!`;
+          const res = await axios({
+            method: 'POST',
+            url: `${process.env.DEVELOPMENT_API_URL}/api/v1/notification`,
+            data: {
+              telegramId: users.chatId,
+              message,
+            },
+          });
+          console.log(res.data);
         }
+
+        if (users.email && users.email !== null && users.toSendEmail) {
+          await sendMail(users.name, url, users.email, query, timeValue);
+        }
+        // }
 
         addUniqueId(jobUniqueId);
       }
